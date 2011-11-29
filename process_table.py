@@ -8,15 +8,19 @@ import numpy as np
 class ProcessTable():
 		
 	def __init__(self):
+		pfile = self.getargs()
 		self.events = self.construct_events('event-dates.csv')
 		print self.events['6A']
 		self.precedence =['1B', '1A', '2B', '2A', '3B', '3A', '4B', '4A', '5B', '5A', '6B', '6A', '7B', '7A', '8B', '8A']
-		self.process_csv('test.csv')
+		self.process_csv(pfile)
 		self.read_replace_template()
 
 
 	def getargs(self):
-		pass
+		parser = argparse.ArgumentParser(description = "Reads from a CSV file and updates fill matrix table.")
+		parser.add_argument('process_file')
+		c = parser.parse_args()
+		return c.process_file
 
 	def read_replace_template(self):
 		with open('template.html', 'r') as fid:
